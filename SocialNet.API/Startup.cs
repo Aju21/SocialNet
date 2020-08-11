@@ -32,6 +32,7 @@ namespace SocialNet.API
             services.AddDbContext<DataContext>(x => x.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
             services.AddControllers();
             services.AddCors();
+            services.AddScoped<IAuthRepository,AuthRepository>(); //Isolated at scope(per http request instead of singleton app level request)
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

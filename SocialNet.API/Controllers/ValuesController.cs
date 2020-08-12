@@ -10,6 +10,9 @@ namespace SocialNet.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    // APIController aids in
+    // Automatic ModelState Validation
+    // No need to specify frombody
     public class ValuesController : ControllerBase
     {
         private readonly DataContext _context;

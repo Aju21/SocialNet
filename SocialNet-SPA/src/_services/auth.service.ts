@@ -17,7 +17,11 @@ login(model: any) {
       const user = response;
       localStorage.setItem('token', user.token);
     })
-  )
+  );
+}
+
+register(model: any) {
+  return this.http.post(this.baseurl + 'register', model);
 }
 
 }

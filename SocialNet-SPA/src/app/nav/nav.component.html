@@ -10,7 +10,7 @@
       <li class="nav-item">
         <a class="nav-link" href="#">Messages</a>
       </li>
-      <li class="nav-item">
+      <li *ngIf="loggedIn()" class="nav-item">
         <a class="nav-link" (click)="loggedOut()">Log Out</a>
       </li>
     </ul>

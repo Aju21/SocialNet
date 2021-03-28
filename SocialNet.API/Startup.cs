@@ -35,7 +35,7 @@ namespace SocialNet.API
             services.AddControllers();
             services.AddCors();
             services.AddScoped<IAuthRepository, AuthRepository>(); //Isolated at scope(per http request instead of singleton app level request)
-            /*services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
                     {
                         options.TokenValidationParameters = new TokenValidationParameters
@@ -47,7 +47,7 @@ namespace SocialNet.API
                             ValidateAudience = false
                         };
                     }
-                );*/
+                );
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -59,7 +59,7 @@ namespace SocialNet.API
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
 
             app.UseRouting();
 

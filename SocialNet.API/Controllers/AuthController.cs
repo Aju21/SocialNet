@@ -11,9 +11,7 @@ using SocialNet.API.Models;
 
 namespace SocialNet.API.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class AuthController : ControllerBase
+    public class AuthController : BaseApiController
     {
         private readonly IAuthRepository _repo;
         private readonly IConfiguration _config;

@@ -61,6 +61,7 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
+            "ssl":true,
             "browserTarget": "SocialNet-SPA:build"
           },
           "configurations": {

@@ -10,12 +10,10 @@ using SocialNet.API.Data;
 namespace SocialNet.API.Controllers
 {
     [Authorize]
-    [Route("api/[controller]")]
-    [ApiController]
     // APIController aids in
     // Automatic ModelState Validation
     // No need to specify frombody
-    public class UsersController : ControllerBase
+    public class UsersController : BaseApiController
     {
         private readonly DataContext _context;
 

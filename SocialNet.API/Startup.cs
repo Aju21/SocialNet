@@ -15,6 +15,9 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using SocialNet.API.Data;
+using SocialNet.API.Extensions;
+using SocialNet.API.Interfaces;
+using SocialNet.API.Services;
 
 namespace SocialNet.API
 {
@@ -31,23 +34,11 @@ namespace SocialNet.API
         public void ConfigureServices(IServiceCollection services)
         {
             // Ordering not important
-            services.AddDbContext<DataContext>(x => x.UseSqlite(_config.GetConnectionString("DefaultConnection")));
+            services.AddApplicationServices(_config);
             services.AddControllers();
             services.AddCors();
             services.AddScoped<IAuthRepository, AuthRepository>(); //Isolated at scope(per http request instead of singleton app level request)
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                .AddJwtBearer(options =>
-                    {
-                        options.TokenValidationParameters = new TokenValidationParameters
-                        {
-                            ValidateIssuerSigningKey = true,
-                            IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII
-                            .GetBytes(_config.GetSection("AppSettings:Token").Value)),
-                            ValidateIssuer = false,
-                            ValidateAudience = false
-                        };
-                    }
-                );
+            services.AddIdentityServices(_config);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -64,7 +55,9 @@ namespace SocialNet.API
             app.UseRouting();
 
             // Dummy Cors Policy for Dev
-            app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+            // Should be between Routing and Authentication
+            //app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+            app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:4200"));
             app.UseAuthentication();
             app.UseAuthorization();
 
